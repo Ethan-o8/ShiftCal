@@ -175,7 +175,8 @@
         aboutDesc: "이 도구는 불규칙한 스케줄을 가진 파트타이머부터 3교대, 4교대 등 복잡한 패턴으로 일하는 교대근무자까지 누구나 빠르고 간편하게 스마트폰 캘린더에 일정을 연동할 수 있도록 설계된 'ShiftCal' 입니다.",
         howTo1: "근무 타입을 선택합니다.", howTo2: "달력의 날짜를 탭하여 일정을 넣습니다.", howTo3: "패턴 자동 완성을 활용하면 더 빠릅니다.", howTo4: "다운로드 후 캘린더 앱에서 엽니다.",
         privacyDesc: "사용자의 일정 데이터는 어떠한 데이터베이스나 외부 서버로도 전송되지 않습니다. 100% 브라우저 내에서만 처리되며, 오프라인 환경에서도 안전하게 파일을 생성합니다.",
-        sun: "일", mon: "월", tue: "화", wed: "수", thu: "목", fri: "금", sat: "토"
+        sun: "일", mon: "월", tue: "화", wed: "수", thu: "목", fri: "금", sat: "토",
+        shift1: "주간", shift2: "야간", shift3: "비번", shift4: "휴무"
       },
       en: {
         pageTitle: "ShiftCal - Shift Schedule Exporter", headerTitle: "🗓️ ShiftCal", workTypesTitle: "💼 Work Types",
@@ -185,7 +186,8 @@
         aboutDesc: "Designed for all shift workers and part-timers. Whether you work rotating shifts or have irregular hours, ShiftCal helps you map out your schedule and sync it with your smartphone calendar in seconds.",
         howTo1: "Select a work type.", howTo2: "Tap dates on the calendar to set.", howTo3: "Use auto-fill for recurring patterns.", howTo4: "Download and open in your calendar app.",
         privacyDesc: "Your schedule data is never sent to any external server. Everything is processed 100% locally in your browser ensuring complete privacy.",
-        sun: "Sun", mon: "Mon", tue: "Tue", wed: "Wed", thu: "Thu", fri: "Fri", sat: "Sat"
+        sun: "Sun", mon: "Mon", tue: "Tue", wed: "Wed", thu: "Thu", fri: "Fri", sat: "Sat",
+        shift1: "Day", shift2: "Night", shift3: "Off", shift4: "Holiday"
       },
       ja: {
         pageTitle: "ShiftCal - シフトカレンダー出力", headerTitle: "🗓️ ShiftCal", workTypesTitle: "💼 勤務タイプ",
@@ -195,7 +197,8 @@
         aboutDesc: "アルバイトや交代勤務など、不規則なシフトで働くすべての方のために設計されました。スケジュールを素早くカレンダーアプリに同期できます。",
         howTo1: "勤務タイプを選択します。", howTo2: "カレンダーの日付をタップして予定を入れます。", howTo3: "パターン自動入力も利用できます。", howTo4: "ダウンロードしてカレンダーアプリで開きます。",
         privacyDesc: "ユーザーのスケジュールデータは外部サーバーに送信されません。100%ブラウザ内で安全に処理されます。",
-        sun: "日", mon: "月", tue: "火", wed: "水", thu: "木", fri: "金", sat: "土"
+        sun: "日", mon: "月", tue: "火", wed: "水", thu: "木", fri: "金", sat: "土",
+        shift1: "日勤", shift2: "夜勤", shift3: "非番", shift4: "休日"
       },
       zh: {
         pageTitle: "ShiftCal - 轮班日历导出", headerTitle: "🗓️ ShiftCal", workTypesTitle: "💼 工作类型",
@@ -205,7 +208,8 @@
         aboutDesc: "专为所有轮班工作者和兼职人员设计。无论您是倒班还是不规律工作，ShiftCal 都能帮助您快速规划日程并同步到智能手机日历。",
         howTo1: "选择工作类型。", howTo2: "点击日历日期设置排班。", howTo3: "使用自动填充重复模式。", howTo4: "下载并在日历应用中打开。",
         privacyDesc: "您的日程数据不会发送到任何外部服务器。所有处理都在浏览器中本地完成，确保隐私安全。",
-        sun: "日", mon: "一", tue: "二", wed: "三", thu: "四", fri: "五", sat: "六"
+        sun: "日", mon: "一", tue: "二", wed: "三", thu: "四", fri: "五", sat: "六",
+        shift1: "白班", shift2: "夜班", shift3: "下班", shift4: "休息"
       },
       fr: {
         pageTitle: "ShiftCal - Calendrier de Travail", headerTitle: "🗓️ ShiftCal", workTypesTitle: "💼 Types de Travail",
@@ -215,7 +219,8 @@
         aboutDesc: "Conçu pour tous les travailleurs postés. Que vous travailliez en horaires décalés ou irréguliers, ShiftCal vous aide à planifier facilement votre emploi du temps.",
         howTo1: "Sélectionnez un type de travail.", howTo2: "Touchez les dates pour définir.", howTo3: "Utilisez le modèle auto.", howTo4: "Téléchargez et ouvrez.",
         privacyDesc: "Vos données ne sont jamais envoyées à un serveur externe. Tout est traité à 100% localement dans votre navigateur.",
-        sun: "Dim", mon: "Lun", tue: "Mar", wed: "Mer", thu: "Jeu", fri: "Ven", sat: "Sam"
+        sun: "Dim", mon: "Lun", tue: "Mar", wed: "Mer", thu: "Jeu", fri: "Ven", sat: "Sam",
+        shift1: "Jour", shift2: "Nuit", shift3: "Repos", shift4: "Congé"
       }
     };
 
@@ -236,11 +241,23 @@
 
     function applyTranslations() {
       const texts = i18n[currentLang];
+      
+      // 언어에 맞게 근무 타입(주간, 야간 등) 이름 업데이트
+      if (workTypes.length >= 4) {
+        workTypes[0].name = texts.shift1;
+        workTypes[1].name = texts.shift2;
+        workTypes[2].name = texts.shift3;
+        workTypes[3].name = texts.shift4;
+      }
+
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if(texts[key]) el.textContent = texts[key];
       });
       document.documentElement.lang = currentLang;
+      
+      // 번역 적용 후 근무타입 버튼들과 패턴 텍스트를 즉시 리렌더링
+      renderWorkTypes();
       updatePatternDisplay();
     }
 
@@ -458,7 +475,7 @@
     document.getElementById('currentYear').textContent = currentYear;
     initTheme();
     applyTranslations();
-    renderWorkTypes();
+    // renderWorkTypes(); (applyTranslations 안으로 이동됨)
     renderCalendar();
 
   </script>
