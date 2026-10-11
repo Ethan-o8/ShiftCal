@@ -10,6 +10,9 @@
   <meta property="og:type" content="website">
   <title data-i18n="pageTitle">ShiftCal - 교대근무 캘린더 추출기</title>
 
+  <!-- Google AdSense 소유권 확인 코드 -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2451918080465945" crossorigin="anonymous"></script>
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -242,7 +245,6 @@
     function applyTranslations() {
       const texts = i18n[currentLang];
       
-      // 언어에 맞게 근무 타입(주간, 야간 등) 이름 업데이트
       if (workTypes.length >= 4) {
         workTypes[0].name = texts.shift1;
         workTypes[1].name = texts.shift2;
@@ -256,7 +258,6 @@
       });
       document.documentElement.lang = currentLang;
       
-      // 번역 적용 후 근무타입 버튼들과 패턴 텍스트를 즉시 리렌더링
       renderWorkTypes();
       updatePatternDisplay();
     }
@@ -321,7 +322,6 @@
       const firstDay = new Date(currentYear, currentMonth, 1).getDay();
       const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-      // Empty slots for days before 1st
       for (let i = 0; i < firstDay; i++) {
         const div = document.createElement('div');
         grid.appendChild(div);
@@ -333,13 +333,11 @@
         
         slot.className = `min-h-[70px] sm:min-h-[90px] border border-gray-200 dark:border-gray-700 rounded-lg p-1 cursor-pointer flex flex-col items-center justify-start transition-all hover:bg-gray-100 dark:hover:bg-gray-800 relative`;
         
-        // Day number
         const daySpan = document.createElement('span');
         daySpan.className = 'text-xs font-semibold mb-1';
         daySpan.textContent = day;
         slot.appendChild(daySpan);
 
-        // Highlight if schedule exists
         if (scheduleData[dateStr]) {
           const shift = workTypes.find(w => w.id === scheduleData[dateStr]);
           if (shift) {
@@ -350,7 +348,6 @@
           }
         }
 
-        // Tap event
         slot.addEventListener('click', () => {
           if (scheduleData[dateStr] === selectedWorkTypeId) {
             delete scheduleData[dateStr];
@@ -475,7 +472,6 @@
     document.getElementById('currentYear').textContent = currentYear;
     initTheme();
     applyTranslations();
-    // renderWorkTypes(); (applyTranslations 안으로 이동됨)
     renderCalendar();
 
   </script>
